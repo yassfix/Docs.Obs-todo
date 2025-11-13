@@ -1,433 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Step-by-step Docs (with GIFs & Images)</title>
-  <style>
-    :root{
-      --bg:#0f1720; --card:#0b1220; --accent:#06b6d4; --muted:#94a3b8; --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071021 0%, #0b1220 100%);
-      color:#e6eef6;
-      padding:24px;
-      line-height:1.45;
-    }
-
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-bottom:18px;
-    }
-    header h1{font-size:20px;margin:0}
-    header p{margin:0;color:var(--muted);font-size:13px}
-
-    .container{
-      display:grid;
-      grid-template-columns: 320px 1fr;
-      gap:18px;
-    }
-
-    /* Sidebar */
-    .sidebar{
-      background:var(--glass);
-      border-radius:12px;
-      padding:12px;
-      min-height:260px;
-      box-shadow: 0 6px 20px rgba(2,6,23,0.6);
-    }
-    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    button{
-      background:transparent;border:1px solid rgba(255,255,255,0.06);
-      color:inherit;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;
-    }
-    button.primary{
-      background:linear-gradient(90deg,var(--accent),#8b5cf6);
-      color:#041018;border:none;box-shadow:0 6px 18px rgba(6,182,212,0.12);
-    }
-    .progress{
-      height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin:10px 0;
-    }
-    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#8b5cf6);width:0%}
-
-    .step-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-    .step-list li{
-      display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);
-      cursor:pointer;border:1px solid transparent;
-    }
-    .step-list li.active{border-color:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 2px rgba(255,255,255,0.01)}
-    .step-dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.06)}
-    .step-title{font-size:14px}
-    .step-done{margin-left:auto;color:#10b981;font-weight:600;font-size:12px}
-
-    /* Main card */
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;padding:18px;box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    }
-    .step-header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-    .step-header h2{margin:0;font-size:18px}
-    .step-body{display:grid;grid-template-columns: 1fr 320px;gap:16px;align-items:start}
-    .content{font-size:15px;color:#dbeafe}
-    .media{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;text-align:center}
-    .media img{max-width:100%;border-radius:8px}
-    .caption{font-size:13px;color:var(--muted);margin-top:6px}
-
-    .controls-bottom{display:flex;gap:8px;align-items:center;margin-top:14px}
-    .code-block{
-      background:#072032;padding:12px;border-radius:8px;font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-      font-size:13px;color:#bfe3ff;overflow:auto;max-height:220px;
-    }
-
-    /* small screens */
-    @media (max-width:820px){
-      .container{grid-template-columns:1fr; }
-      .step-body{grid-template-columns:1fr}
-      .media{order:2}
-    }
-
-    /* print-friendly */
-    @media print{
-      body{background:white;color:black;padding:0}
-      .sidebar,button,progress, .controls{display:none}
-      .card{box-shadow:none;border-radius:0;padding:0}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Name - Documentation</title>
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
-  <header>
-    <div>
-      <h1>Step-by-step Guide (editable)</h1>
-      <p>Includes images and GIFs — click an image placeholder to upload your own file.</p>
-    </div>
-  </header>
 
-  <main class="container" role="main">
-    <!-- Sidebar with steps -->
-    <aside class="sidebar" aria-label="Steps sidebar">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <strong>Steps</strong>
-        <small id="step-count">0</small>
-      </div>
+    <header>
+        <h1>Product Name Docs</h1>
+        </header>
 
-      <div class="controls">
-        <button id="add-step" class="primary" title="Add a new step">+ Add step</button>
-        <button id="toggle-all" title="Collapse/expand descriptions">Toggle view</button>
-        <button id="print" title="Print this guide">Print</button>
-      </div>
-
-      <div class="progress" aria-hidden="true">
-        <i id="progress-bar" style="width:0%"></i>
-      </div>
-
-      <ul class="step-list" id="steps" role="list"></ul>
-    </aside>
-
-    <!-- Main step card -->
-    <section class="card" aria-live="polite">
-      <div class="step-header">
-        <h2 id="step-title">No steps yet — add one</h2>
-        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-          <label style="font-size:13px;color:var(--muted)">
-            <input id="mark-done" type="checkbox" /> Done
-          </label>
-        </div>
-      </div>
-
-      <div class="step-body">
-        <div>
-          <div class="content" id="step-desc">
-            <p>Use the "Add step" button to create a step. Each step can include an image or GIF — click the image box to upload a file from your computer.</p>
-          </div>
-
-          <div style="margin-top:12px">
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button id="prev" title="Previous step">← Previous</button>
-              <button id="next" title="Next step">Next →</button>
-              <button id="delete-step" title="Delete step">Delete</button>
-              <button id="duplicate-step" title="Duplicate step">Duplicate</button>
-            </div>
-          </div>
-
-          <div style="margin-top:12px">
-            <strong>Optional code / note</strong>
-            <div class="code-block" id="step-code" contenteditable="true" aria-label="Editable code or note" spellcheck="false">
-# Paste code or notes here (editable)
-            </div>
-          </div>
-        </div>
-
-        <aside class="media" aria-label="Step media">
-          <input id="image-input" type="file" accept="image/*,video/*,image/gif" style="display:none" />
-          <div id="image-placeholder" style="cursor:pointer">
-            <img id="step-image" alt="Step media placeholder" src="" style="display:none" />
-            <div id="placeholder-text">
-              <svg width="86" height="60" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 3h16v18H4z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <div style="margin-top:8px;color:var(--muted)">Click to upload image or GIF</div>
-              <div class="caption" style="margin-top:8px" id="image-caption">No media</div>
-            </div>
-          </div>
-
-          <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
-            <button id="replace-image">Replace</button>
-            <button id="clear-image">Clear</button>
-          </div>
+    <div id="main-container">
+        <aside id="sidebar">
+            <nav>
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#introduction">1. Introduction</a></li>
+                    <li><a href="#getting-started">2. Getting Started</a>
+                        <ul>
+                            <li><a href="#installation">2.1 Installation</a></li>
+                            <li><a href="#first-project">2.2 Your First Project</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#api-reference">3. API Reference</a></li>
+                    <li><a href="#troubleshooting">4. Troubleshooting</a></li>
+                </ul>
+            </nav>
         </aside>
-      </div>
-    </section>
-  </main>
 
-  <template id="step-template">
-    <li role="listitem" data-step-index="">
-      <div class="step-dot" aria-hidden="true"></div>
-      <div class="step-title">Step title</div>
-      <div class="step-done" style="display:none">✔</div>
-    </li>
-  </template>
+        <main id="content">
 
-  <script>
-    // Simple step manager
-    const stepsEl = document.getElementById('steps');
-    const template = document.getElementById('step-template');
-    const stepTitleEl = document.getElementById('step-title');
-    const stepDescEl = document.getElementById('step-desc');
-    const stepImageEl = document.getElementById('step-image');
-    const placeholderText = document.getElementById('placeholder-text');
-    const imageInput = document.getElementById('image-input');
-    const imageCaption = document.getElementById('image-caption');
-    const stepCountEl = document.getElementById('step-count');
-    const progressBar = document.getElementById('progress-bar');
-    const stepCodeEl = document.getElementById('step-code');
-    const markDoneCheckbox = document.getElementById('mark-done');
+            <section id="introduction">
+                <h2>1. Introduction 👋</h2>
+                <p>Welcome to the official documentation for **[Product Name]**. This guide will help you understand and utilize all the features of our product.</p>
+            </section>
+            
+            <section id="getting-started">
+                <h2>2. Getting Started</h2>
+                <p>Here's how to get up and running quickly.</p>
 
-    let steps = [];
-    let currentIndex = -1;
+                <h3 id="installation">2.1 Installation</h3>
+                <p>Follow these steps to install the necessary components.</p>
+                <pre><code>npm install product-name</code></pre>
+                
+                <h3 id="first-project">2.2 Your First Project</h3>
+                <p>A simple example project goes here.</p>
+            </section>
 
-    function renderStepsList(){
-      stepsEl.innerHTML = '';
-      steps.forEach((s,i)=>{
-        const node = template.content.cloneNode(true);
-        const li = node.querySelector('li');
-        li.dataset.stepIndex = i;
-        li.querySelector('.step-title').textContent = s.title || `Step ${i+1}`;
-        const doneEl = li.querySelector('.step-done');
-        if(s.done){doneEl.style.display='block'} else doneEl.style.display='none';
-        if(i === currentIndex) li.classList.add('active');
-        li.addEventListener('click', ()=> { setCurrent(i); });
-        stepsEl.appendChild(li);
-      });
-      stepCountEl.textContent = `${steps.length} total`;
-      updateProgress();
-    }
+            <section id="api-reference">
+                <h2>3. API Reference</h2>
+                <p>Detailed list of functions, classes, and methods.</p>
+            </section>
 
-    function updateProgress(){
-      const doneCount = steps.filter(s=>s.done).length;
-      const pct = steps.length ? Math.round(doneCount/steps.length*100) : 0;
-      progressBar.style.width = pct + '%';
-    }
+        </main>
+    </div>
 
-    function setCurrent(i){
-      if(i < 0 || i >= steps.length) return;
-      currentIndex = i;
-      const s = steps[i];
-      stepTitleEl.textContent = s.title || `Step ${i+1}`;
-      stepDescEl.innerHTML = s.desc || `<p>(no description)</p>`;
-      stepCodeEl.textContent = s.code || '';
-      markDoneCheckbox.checked = !!s.done;
+    <footer>
+        <p>&copy; 2025 Product Name. All rights reserved.</p>
+        </footer>
 
-      if(s.imageData){
-        stepImageEl.src = s.imageData;
-        stepImageEl.style.display = 'block';
-        placeholderText.style.display='none';
-        imageCaption.textContent = s.imageCaption || 'Uploaded image';
-      } else {
-        stepImageEl.style.display = 'none';
-        stepImageEl.src = '';
-        placeholderText.style.display='block';
-        imageCaption.textContent = 'No media';
-      }
-      renderStepsList();
-    }
-
-    // Add a new default step
-    document.getElementById('add-step').addEventListener('click', ()=>{
-      const newStep = {
-        title: `Step ${steps.length+1}`,
-        desc: `<p>Describe this step...</p>`,
-        imageData: null,
-        imageCaption: '',
-        code: '',
-        done: false
-      };
-      steps.push(newStep);
-      setCurrent(steps.length - 1);
-    });
-
-    // Next / Prev / Delete / Duplicate
-    document.getElementById('next').addEventListener('click', ()=>{
-      if(currentIndex < steps.length - 1) setCurrent(currentIndex + 1);
-    });
-    document.getElementById('prev').addEventListener('click', ()=>{
-      if(currentIndex > 0) setCurrent(currentIndex - 1);
-    });
-    document.getElementById('delete-step').addEventListener('click', ()=>{
-      if(currentIndex < 0) return;
-      steps.splice(currentIndex,1);
-      if(steps.length === 0){
-        currentIndex = -1;
-        stepTitleEl.textContent = 'No steps yet — add one';
-        stepDescEl.innerHTML = '<p>Use the "Add step" button to create a step.</p>';
-        stepImageEl.style.display='none';
-        placeholderText.style.display='block';
-      } else {
-        setCurrent(Math.max(0, currentIndex-1));
-      }
-      renderStepsList();
-    });
-    document.getElementById('duplicate-step').addEventListener('click', ()=>{
-      if(currentIndex < 0) return;
-      const copy = JSON.parse(JSON.stringify(steps[currentIndex]));
-      copy.title = copy.title + ' (copy)';
-      steps.splice(currentIndex+1,0,copy);
-      setCurrent(currentIndex+1);
-    });
-
-    // Image upload & replace
-    document.getElementById('image-placeholder').addEventListener('click', ()=> imageInput.click());
-    document.getElementById('replace-image').addEventListener('click', ()=> imageInput.click());
-    imageInput.addEventListener('change', (ev)=>{
-      const f = ev.target.files[0];
-      if(!f) return;
-      const reader = new FileReader();
-      reader.onload = function(e){
-        const data = e.target.result;
-        if(currentIndex < 0){
-          // auto-create a step if none exists
-          document.getElementById('add-step').click();
-        }
-        steps[currentIndex].imageData = data;
-        steps[currentIndex].imageCaption = f.name;
-        setCurrent(currentIndex);
-      };
-      reader.readAsDataURL(f);
-      imageInput.value = '';
-    });
-
-    document.getElementById('clear-image').addEventListener('click', ()=>{
-      if(currentIndex < 0) return;
-      steps[currentIndex].imageData = null;
-      steps[currentIndex].imageCaption = '';
-      setCurrent(currentIndex);
-    });
-
-    // Toggle done
-    markDoneCheckbox.addEventListener('change', (e)=>{
-      if(currentIndex < 0) return;
-      steps[currentIndex].done = e.target.checked;
-      renderStepsList();
-      updateProgress();
-    });
-
-    // Inline editing: title, description, code
-    // Click title to edit (simple prompt) — minimal UI but works without extra libs.
-    stepTitleEl.addEventListener('click', ()=>{
-      if(currentIndex < 0) return;
-      const newTitle = prompt('Edit step title', steps[currentIndex].title || '');
-      if(newTitle !== null) {
-        steps[currentIndex].title = newTitle;
-        setCurrent(currentIndex);
-      }
-    });
-
-    // Double-click description to edit using a prompt (keeps it simple)
-    stepDescEl.addEventListener('dblclick', ()=>{
-      if(currentIndex < 0) return;
-      const plain = steps[currentIndex].desc ? steps[currentIndex].desc.replace(/<[^>]*>?/gm,'') : '';
-      const edited = prompt('Edit description (plain text). Basic line breaks will be preserved.', plain);
-      if(edited !== null){
-        steps[currentIndex].desc = '<p>' + edited.replace(/\n/g,'</p><p>') + '</p>';
-        setCurrent(currentIndex);
-      }
-    });
-
-    // Save code edits on blur
-    stepCodeEl.addEventListener('blur', ()=>{
-      if(currentIndex < 0) return;
-      steps[currentIndex].code = stepCodeEl.textContent;
-    });
-
-    // Toggle view (collapse/expand details)
-    document.getElementById('toggle-all').addEventListener('click', ()=>{
-      const list = document.querySelectorAll('.step-list li');
-      list.forEach(l=> l.classList.toggle('active'));
-    });
-
-    // Print
-    document.getElementById('print').addEventListener('click', ()=> window.print());
-
-    // Small helper: save to / load from localStorage (auto)
-    function saveToStorage(){
-      try{
-        localStorage.setItem('stepguide_v1', JSON.stringify(steps));
-      }catch(e){}
-    }
-    function loadFromStorage(){
-      try{
-        const raw = localStorage.getItem('stepguide_v1');
-        if(raw){
-          steps = JSON.parse(raw);
-          if(steps.length) setCurrent(0);
-          renderStepsList();
-        }
-      }catch(e){}
-    }
-
-    // auto-save periodically
-    setInterval(saveToStorage, 2000);
-
-    // Save when window unloads
-    window.addEventListener('beforeunload', saveToStorage);
-
-    // When list changes, re-render
-    const observer = new MutationObserver(()=> renderStepsList());
-    observer.observe(stepsEl, {childList:true});
-
-    // Init: create two example steps so the user sees behaviour right away
-    steps = [
-      {
-        title: 'Install the app',
-        desc: '<p>Download the installer, open it and follow on-screen prompts.</p>',
-        imageData: null,
-        imageCaption: '',
-        code: 'sudo installer run',
-        done: false
-      },
-      {
-        title: 'Start the service',
-        desc: '<p>Open terminal and run the start command. Wait for the confirmation message.</p>',
-        imageData: null,
-        imageCaption: '',
-        code: 'service start myapp',
-        done: false
-      }
-    ];
-    setCurrent(0);
-    renderStepsList();
-
-    // Keep UI in sync when steps change (simple)
-    const saveWatcher = setInterval(()=>{
-      if(currentIndex>=0){
-        // persist live edited description and title
-        steps[currentIndex].code = stepCodeEl.textContent;
-      }
-      saveToStorage();
-    },1000);
-
-  </script>
 </body>
 </html>
