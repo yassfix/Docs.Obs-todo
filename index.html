@@ -264,6 +264,27 @@
              padding-bottom: 15px;
              margin-bottom: 20px;
         }
+
+        .video-container {
+            /* Controls the size: Change 600px to whatever width you prefer */
+            max-width: 800px; 
+            
+            /* Centers the video player */
+            margin: 20px auto; 
+            
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background-color: #000;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        video {
+            width: 100%;  /* Fills the container, which is now smaller */
+            height: auto;
+            display: block;
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -291,7 +312,9 @@
         </details>
         
         <section id="quick-start">
-            <h2>🚀 Quick Start: Adding to OBS / Streamlabs</h2>
+            <h2>🚀 Quick Start: </h2>
+            <h3 style="margin-top: 25px; color: var(--primary);">1. Adding to OBS / Streamlabs</h3>
+
             <p>You can add OBS Todo to your streaming software in less than 30 seconds.</p>
 
             <ol>
@@ -317,14 +340,63 @@ body::-webkit-scrollbar { display: none; }</code>
 
                 <li>Click <strong>OK</strong>.</li>
             </ol>
+            <h3 style="margin-top: 25px; color: var(--text);">📺 Video Walkthrough</h3>
+            <div class="video-container">
+                <video controls preload="metadata">
+                    <source src="https://raw.githubusercontent.com/yassfix/Docs.Obs-todo/gh-pages/assets/tutorial.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
 
-            <h3 style="margin-top: 25px; color: var(--text);">How to Control the List</h3>
-            <p>To interact with the list (add tasks, check them off, start timers) without leaving OBS:</p>
-            <ul>
-                <li>Right-click the <strong>Todo Overlay</strong> source in OBS.</li>
+
+            <h3 style="margin-top: 25px; color: var(--primary);">2. How to Control the Todo List from OBS</h3>
+
+            
+
+            <p>To interact with the list (add tasks, check them off, or start timers) without leaving OBS:</p>
+
+            <ol>
+                <li><strong>Right-click</strong> the browser source you created (e.g., "Todo Overlay") in OBS.</li>
                 <li>Select <strong>Interact</strong>.</li>
                 <li>A window will pop up allowing you to type and click just like a normal browser.</li>
-            </ul>
+                <li>Inside this window, you can fully manage your session:
+                    <ul>
+                        <li>Add and complete tasks</li>
+                        <li>Use individual task timers or the Pomodoro timer</li>
+                        <li>Switch between <strong>Static</strong> and <strong>Auto-scroll</strong> modes</li>
+                    </ul>
+                </li>
+                <li><strong>Better Look:</strong> Scroll down in the Interact window and click <strong>Minimal Mode</strong> for a cleaner display.</li>
+                <li><strong>Crop the Window:</strong> Hold the <strong>Alt</strong> key while dragging the red edges in OBS to crop out any empty space.</li>
+            </ol>
+            <div class="video-container">
+                <video controls preload="metadata">
+                    <source src="https://raw.githubusercontent.com/yassfix/Docs.Obs-todo/gh-pages/assets/How to Control the Todo List from OBS.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <details>
+            <summary><h2>🎬 Demo: Using Minimal Mode</h2></summary>
+            <div class="details-content">
+                <p>Minimal Mode hides the buttons for a cleaner look, but you can still control everything.</p>
+
+                <div class="video-container">
+                    <video controls preload="metadata">
+                        <source src="https://raw.githubusercontent.com/yassfix/Docs.Obs-todo/gh-pages/assets/Minimal mode control.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <ol>
+                    <li><strong>Stay Functional:</strong> Even in Minimal Mode, you can still click the checkboxes to finish tasks.</li>
+                    <li><strong>Control Timers:</strong> You can still start or stop the <strong>Pomodoro</strong> and <strong>Task Timers</strong> by clicking them directly on the screen.</li>
+                    <li><strong>Clean Setup:</strong> This allows you to keep the list active on your stream without any distracting settings or menus showing to your viewers.</li>
+                </ol>
+            </div>
+        </details>
+
+            
+
         </section>
 
         <details>
